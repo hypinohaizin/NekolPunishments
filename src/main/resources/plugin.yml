@@ -1,6 +1,6 @@
 name: AnniPunishments
 version: 1.0
-main: dev.hypinohaizin.Punishments.dev
+main: dev.hypinohaizin.AnniPunishments
 author: Hypinohaizin
 description: AnniBanPlugin
 commands:

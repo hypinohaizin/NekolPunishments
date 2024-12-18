@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,7 @@ public class JoinLeaveEvent implements Listener {
    @EventHandler
    public void onLeave(PlayerQuitEvent event) {
       String uuid = event.getPlayer().getUniqueId().toString();
-      File playerfile = new File(((Punishments)Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       if (playerData.contains(uuid) && playerData.getBoolean(uuid + ".ban.isbanned")) {
          event.setQuitMessage((String)null);
@@ -26,7 +26,7 @@ public class JoinLeaveEvent implements Listener {
 
    @EventHandler
    public void onJoin(PlayerJoinEvent event) {
-      File playerfile = new File(((Punishments)Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       String uuid = event.getPlayer().getUniqueId().toString();
       long unixTime = System.currentTimeMillis() / 1000L;
@@ -45,13 +45,13 @@ public class JoinLeaveEvent implements Listener {
 
          event.setJoinMessage((String)null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§cYou are permanently banned from this server!\n\n§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((Punishments)Punishments.getPlugin(Punishments.class)).getConfig().getString("bandomain") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
+            event.getPlayer().kickPlayer("§cYou are permanently banned from this server!\n\n§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
 
-            event.getPlayer().kickPlayer("§cYou are temporarily banned for §f" + calculateTime((long)playerData.getInt(uuid + ".ban.length") - unixTime) + " §cfrom this server!\n\n" + "§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((Punishments)Punishments.getPlugin(Punishments.class)).getConfig().getString("bandoPunishments") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
+            event.getPlayer().kickPlayer("§cYou are temporarily banned for §f" + calculateTime((long)playerData.getInt(uuid + ".ban.length") - unixTime) + " §cfrom this server!\n\n" + "§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandoPunishments") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
          }
       }
 

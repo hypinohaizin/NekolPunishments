@@ -4,7 +4,7 @@ import dev.hypinohaizin.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Punishments extends JavaPlugin {
+public class AnniPunishments extends JavaPlugin {
    public void onEnable() {
       this.loadConfig();
       System.out.println("[AnniPunishments] Plugin Loaded...");

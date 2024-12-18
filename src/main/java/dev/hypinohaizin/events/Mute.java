@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -35,7 +35,7 @@ public class Mute implements CommandExecutor {
 
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((Punishments) Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -81,7 +81,7 @@ public class Mute implements CommandExecutor {
                         target.sendMessage("§cYou are currently muted for " + reason + ".");
                         target.sendMessage("§7Your mute will expire in §c" + calculateTime((long)playerData.getInt(uuid + ".mute.length") - unixTime));
                         target.sendMessage("");
-                        target.sendMessage("§7Find out more here: §e" + ((Punishments)Punishments.getPlugin(Punishments.class)).getConfig().getString("mutedoPunishments"));
+                        target.sendMessage("§7Find out more here: §e" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("mutedoPunishments"));
                         target.sendMessage("§7Mute ID: §f#" + playerData.getString(uuid + ".mute.id"));
                         target.sendMessage("§c§l§m---------------------------------------------");
                      } else {

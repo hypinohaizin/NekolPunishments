@@ -1,6 +1,6 @@
 package dev.hypinohaizin.events;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class Kick implements CommandExecutor {
             }
 
             sender.sendMessage("§aKicked player " + Bukkit.getPlayer(args[0]).getName() + " for " + reason);
-            target.kickPlayer("§cYou have been kicked!\n\n§7Reason: §f" + reason + "\n" + "§7Find out more: §b§n" + ((Punishments)Punishments.getPlugin(Punishments.class)).getConfig().getString("kickdomain"));
+            target.kickPlayer("§cYou have been kicked!\n\n§7Reason: §f" + reason + "\n" + "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("kickdomain"));
          } else {
             sender.sendMessage("§cInvalid syntax. Correct: /kick <name> <reason>");
          }

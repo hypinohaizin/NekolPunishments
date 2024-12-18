@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -26,7 +26,7 @@ public class Ban implements CommandExecutor {
 
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((Punishments) Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -68,7 +68,7 @@ public class Ban implements CommandExecutor {
                         sender.sendMessage("§cPermanently banned §e" + Bukkit.getPlayer(args[0]).getName() + " §cfor §b" + reason);
                         target.getPlayer().kickPlayer("§cYou are permanently banned from this server!\n\n" +
                                 "§cReason: §b" + playerData.getString(uuid + ".ban.reason") + "\n" +
-                                "§7Find out more: §b§n" + ((Punishments) Punishments.getPlugin(Punishments.class)).getConfig().getString("bandomain") + "\n\n" +
+                                "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" +
                                 "§cBan ID: §e#" + playerData.getString(uuid + ".ban.id") + "\n" +
                                 "§eSharing your Ban ID may affect the processing of your appeal!");
                      }

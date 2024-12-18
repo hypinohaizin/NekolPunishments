@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class PlayerChat implements Listener {
    @EventHandler
    public void onChat(AsyncPlayerChatEvent event) {
       Player player = event.getPlayer();
-      File playerfile = new File(((Punishments)Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       String uuid = event.getPlayer().getUniqueId().toString();
       long unixTime = System.currentTimeMillis() / 1000L;
@@ -42,7 +42,7 @@ public class PlayerChat implements Listener {
          player.sendMessage("§cYou are currently muted for " + playerData.getString(uuid + ".mute.reason") + ".");
          player.sendMessage("§7Your mute will expire in §c" + calculateTime((long)playerData.getInt(uuid + ".mute.length") - unixTime));
          player.sendMessage("");
-         player.sendMessage("§7Find out more here: §e" + ((Punishments)Punishments.getPlugin(Punishments.class)).getConfig().getString("mutedoPunishments"));
+         player.sendMessage("§7Find out more here: §e" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("mutedoPunishments"));
          player.sendMessage("§7Mute ID: §f#" + playerData.getString(uuid + ".mute.id"));
          player.sendMessage("§c§l§m---------------------------------------------");
          event.setCancelled(true);

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,7 +18,7 @@ public class Unban implements CommandExecutor {
       if (sender.hasPermission("punishments.unban")) {
          if (args.length >= 1) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((Punishments)Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {

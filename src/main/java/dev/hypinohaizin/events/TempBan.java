@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dev.hypinohaizin.Punishments;
+import dev.hypinohaizin.AnniPunishments;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +34,7 @@ public class TempBan implements CommandExecutor {
 
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((Punishments) Punishments.getPlugin(Punishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -78,7 +78,7 @@ public class TempBan implements CommandExecutor {
                         sender.sendMessage("§cTempbanned §e" + Bukkit.getPlayer(args[0]).getName() + " §cfor §6" + args[1] + " §cfor §b" + reason);
                         target.kickPlayer("§cYou are temporarily banned for §f" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + " §cfrom this server!\n\n" +
                                 "§cReason: §b" + playerData.getString(uuid + ".ban.reason") + "\n" +
-                                "§7Find out more: §b§n" + ((Punishments) Punishments.getPlugin(Punishments.class)).getConfig().getString("bandomain") + "\n\n" +
+                                "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" +
                                 "§cBan ID: §e#" + playerData.getString(uuid + ".ban.id") + "\n" +
                                 "§eSharing your Ban ID may affect the processing of your appeal!");
                      } else {
