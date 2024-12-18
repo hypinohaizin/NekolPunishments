@@ -75,15 +75,15 @@ public class TempBan implements CommandExecutor {
                      playerData.set(uuid + ".ban.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§cTempbanned §e" + Bukkit.getPlayer(args[0]).getName() + " §cfor §6" + args[1] + " §cfor §b" + reason);
-                        target.kickPlayer("§cYou are temporarily banned for §f" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + " §cfrom this server!\n\n" +
-                                "§cReason: §b" + playerData.getString(uuid + ".ban.reason") + "\n" +
-                                "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" +
-                                "§cBan ID: §e#" + playerData.getString(uuid + ".ban.id") + "\n" +
-                                "§eSharing your Ban ID may affect the processing of your appeal!");
+                        sender.sendMessage("§cTEMPBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
+                        target.kickPlayer("§c§lTEMPBANNED\n\n" +
+                                "§6" + reason + "\n" +
+                                "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + "\n\n" +
+                                "§aAppeal ID: §e" + playerData.getString(uuid + ".ban.id") + " §7(Quote in your appeal)");
                      } else {
-                        sender.sendMessage("§cTempbanned §e" + args[0] + " §cfor §6" + args[1] + " §cfor §b" + reason);
+                        sender.sendMessage("§cTEMPBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
+
 
                   } catch (IOException var16) {
                      var16.printStackTrace();

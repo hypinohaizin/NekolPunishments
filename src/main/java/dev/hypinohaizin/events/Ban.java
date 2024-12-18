@@ -60,17 +60,14 @@ public class Ban implements CommandExecutor {
                      playerData.set(uuid + ".ban.length", -1);
                      playerData.set(uuid + ".ban.id", pwd);
                      playerData.save(playerfile);
-                     if (target == null) {
-                        sender.sendMessage("§cPermanently banned §e" + args[0] + " §cfor §b" + reason);
-                     }
-
                      if (target != null) {
-                        sender.sendMessage("§cPermanently banned §e" + Bukkit.getPlayer(args[0]).getName() + " §cfor §b" + reason);
-                        target.getPlayer().kickPlayer("§cYou are permanently banned from this server!\n\n" +
-                                "§cReason: §b" + playerData.getString(uuid + ".ban.reason") + "\n" +
-                                "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" +
-                                "§cBan ID: §e#" + playerData.getString(uuid + ".ban.id") + "\n" +
-                                "§eSharing your Ban ID may affect the processing of your appeal!");
+                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
+                        target.kickPlayer("§c§lBANNED\n\n" +
+                                "§6Modified Client\n" +
+                                "§cThis ban is permanent\n\n" +
+                                "§aAppeal ID: §e" + playerData.getString(uuid + ".ban.id") + " §7(Quote in your appeal)");
+                     } else {
+                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
                      }
 
                   } catch (IOException var12) {
