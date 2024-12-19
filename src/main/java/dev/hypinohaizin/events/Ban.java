@@ -20,12 +20,12 @@ public class Ban
             String reason = "";
             int i = 1;
             while (i < args.length) {
-               reason = String.valueOf(reason) + args[i] + " ";
+               reason = reason + args[i] + " ";
                ++i;
             }
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments)AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
             YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -33,7 +33,7 @@ public class Ban
             }
             if (uuid == null) {
                for (String key : playerData.getKeys(false)) {
-                  if (!playerData.getString(String.valueOf(key) + ".name").equalsIgnoreCase(args[0])) continue;
+                  if (!playerData.getString(key + ".name").equalsIgnoreCase(args[0])) continue;
                   uuid = key;
                }
             }

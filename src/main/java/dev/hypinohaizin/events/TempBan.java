@@ -34,7 +34,7 @@ public class TempBan implements CommandExecutor {
 
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
             YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -42,7 +42,7 @@ public class TempBan implements CommandExecutor {
             }
             if (uuid == null) {
                for (String key : playerData.getKeys(false)) {
-                  if (!playerData.getString(String.valueOf(key) + ".name").equalsIgnoreCase(args[0])) continue;
+                  if (!playerData.getString(key + ".name").equalsIgnoreCase(args[0])) continue;
                   uuid = key;
                }
             }
@@ -57,7 +57,7 @@ public class TempBan implements CommandExecutor {
                return false;
             }
             if (playerData.contains(uuid)) {
-               if (!playerData.getBoolean(String.valueOf(uuid) + ".ban.isbanned")) {
+               if (!playerData.getBoolean(uuid+ ".ban.isbanned")) {
                   try {
                      String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
