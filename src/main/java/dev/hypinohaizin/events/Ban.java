@@ -55,17 +55,17 @@ public class Ban implements CommandExecutor {
                   try {
                      characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
-                     playerData.set(uuid + ".ban.isbanned", true);
-                     playerData.set(uuid + ".ban.reason", reason);
-                     playerData.set(uuid + ".ban.length", -1);
-                     playerData.set(uuid + ".ban.id", pwd);
+                     playerData.set(String.valueOf(uuid) + ".ban.isbanned", true);
+                     playerData.set(String.valueOf(uuid) + ".ban.reason", reason);
+                     playerData.set(String.valueOf(uuid) + ".ban.length", -1);
+                     playerData.set(String.valueOf(uuid) + ".ban.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
-                        target.kickPlayer("§c§lBANNED\n\n" +
+                        target.kickPlayer("§c§lBANNED\n" +
                                 "§6" + "reason \n" +
-                                "§cThis ban is permanent\n\n" +
-                                "§aAppeal ID: §e" + playerData.getString(uuid + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)"));
+                                "§cThis ban is permanent\n" +
+                                "§aAppeal ID: §e" + playerData.getString(uuid + pwd + "\nCreate a ticket in Discord (Fast Support)"));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
                      }

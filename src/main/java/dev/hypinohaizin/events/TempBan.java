@@ -69,17 +69,17 @@ public class TempBan implements CommandExecutor {
                   try {
                      String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
-                     playerData.set(uuid + ".ban.isbanned", true);
-                     playerData.set(uuid + ".ban.reason", reason);
-                     playerData.set(uuid + ".ban.length", unixTime + banTime);
-                     playerData.set(uuid + ".ban.id", pwd);
+                     playerData.set(String.valueOf(uuid) + ".ban.isbanned", true);
+                     playerData.set(String.valueOf(uuid) + ".ban.reason", reason);
+                     playerData.set(String.valueOf(uuid) + ".ban.length", unixTime + banTime);
+                     playerData.set(String.valueOf(uuid) + ".ban.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
-                        target.kickPlayer("§c§lBANNED\n\n" +
+                        target.kickPlayer("§c§lBANNED\n" +
                                 "§6" + reason + "\n" +
                                 "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + "\n\n" +
-                                "§aAppeal ID: §e" + playerData.getString(uuid + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)"));
+                                "§aAppeal ID: §e" + playerData.getString(uuid + pwd + "\nCreate a ticket in Discord (Fast Support)"));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
