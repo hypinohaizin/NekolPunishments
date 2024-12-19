@@ -2,7 +2,6 @@ package dev.hypinohaizin.events;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 import dev.hypinohaizin.AnniPunishments;
 import org.apache.commons.lang.RandomStringUtils;
@@ -10,62 +9,54 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Ban implements CommandExecutor {
+public class Ban
+        implements CommandExecutor {
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
       if (sender.hasPermission("punishments.ban")) {
          if (args.length >= 2) {
             String reason = "";
-
-            for(int i = 1; i < args.length; ++i) {
-               reason = reason + args[i] + " ";
+            int i = 1;
+            while (i < args.length) {
+               reason = String.valueOf(reason) + args[i] + " ";
+               ++i;
             }
-
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
-            FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
+            File playerfile = new File(((AnniPunishments)AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
                uuid = target.getPlayer().getUniqueId().toString();
             }
-
-            String characters;
             if (uuid == null) {
-               Iterator var11 = playerData.getKeys(false).iterator();
-
-               while(var11.hasNext()) {
-                  characters = (String)var11.next();
-                  if (playerData.getString(characters + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = characters;
-                  }
+               for (String key : playerData.getKeys(false)) {
+                  if (!playerData.getString(String.valueOf(key) + ".name").equalsIgnoreCase(args[0])) continue;
+                  uuid = key;
                }
             }
-
             if (uuid == null) {
                sender.sendMessage("§cPlayer does not exist.");
                return false;
             }
-
             if (playerData.contains(uuid)) {
                if (!playerData.getBoolean(uuid + ".ban.isbanned")) {
                   try {
-                     characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                     String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
-                     playerData.set(String.valueOf(uuid) + ".ban.isbanned", true);
-                     playerData.set(String.valueOf(uuid) + ".ban.reason", reason);
-                     playerData.set(String.valueOf(uuid) + ".ban.length", -1);
-                     playerData.set(String.valueOf(uuid) + ".ban.id", pwd);
+                     playerData.set(uuid + ".ban.isbanned", true);
+                     playerData.set(uuid + ".ban.reason", reason);
+                     playerData.set(uuid + ".ban.length", -1);
+                     playerData.set(uuid + ".ban.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
                         target.kickPlayer("§c§lBANNED\n" +
                                 "§6" + reason +"\n" +
                                 "§cThis ban is permanent\n" +
-                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(String.valueOf(uuid) + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
+                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(uuid + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
                      }

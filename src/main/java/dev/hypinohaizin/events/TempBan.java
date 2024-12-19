@@ -35,51 +35,43 @@ public class TempBan implements CommandExecutor {
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
             File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
-            FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
+            YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
                uuid = target.getPlayer().getUniqueId().toString();
             }
-
             if (uuid == null) {
-               Iterator var11 = playerData.getKeys(false).iterator();
-
-               while(var11.hasNext()) {
-                  String key = (String)var11.next();
-                  if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = key;
-                  }
+               for (String key : playerData.getKeys(false)) {
+                  if (!playerData.getString(String.valueOf(key) + ".name").equalsIgnoreCase(args[0])) continue;
+                  uuid = key;
                }
             }
-
             if (uuid == null) {
                sender.sendMessage("§cPlayer does not exist.");
                return false;
             }
-
             long unixTime = System.currentTimeMillis() / 1000L;
-            long banTime = parsePeriod(args[1]) / 1000L - 1L;
+            long banTime = TempBan.parsePeriod(args[1]) / 1000L - 1L;
             if (banTime < 59L) {
                sender.sendMessage("§cYou can not ban someone for less than 1 minute.");
                return false;
             }
-
             if (playerData.contains(uuid)) {
-               if (!playerData.getBoolean(uuid + ".ban.isbanned")) {
+               if (!playerData.getBoolean(String.valueOf(uuid) + ".ban.isbanned")) {
                   try {
                      String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
-                     playerData.set(String.valueOf(uuid) + ".ban.isbanned", true);
-                     playerData.set(String.valueOf(uuid) + ".ban.reason", reason);
-                     playerData.set(String.valueOf(uuid) + ".ban.length", unixTime + banTime);
-                     playerData.set(String.valueOf(uuid) + ".ban.id", pwd);
+                     playerData.set(uuid + ".ban.isbanned", true);
+                     playerData.set(uuid + ".ban.reason", reason);
+                     playerData.set(uuid + ".ban.length", -1);
+                     playerData.set(uuid + ".ban.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
                         target.kickPlayer("§c§lBANNED\n" +
                                 "§6" + reason + "\n" +
                                 "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + "\n\n" +
-                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(String.valueOf(uuid) + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
+                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(uuid + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
@@ -123,20 +115,20 @@ public class TempBan implements CommandExecutor {
             int num = Integer.parseInt(matcher.group(1));
             String typ = matcher.group(2);
             switch(typ.hashCode()) {
-            case 100:
-               if (typ.equals("d")) {
-                  instant = instant.plus(Duration.ofDays((long)num));
-               }
-               break;
-            case 104:
-               if (typ.equals("h")) {
-                  instant = instant.plus(Duration.ofHours((long)num));
-               }
-               break;
-            case 109:
-               if (typ.equals("m")) {
-                  instant = instant.plus(Duration.ofMinutes((long)num));
-               }
+               case 100:
+                  if (typ.equals("d")) {
+                     instant = instant.plus(Duration.ofDays((long)num));
+                  }
+                  break;
+               case 104:
+                  if (typ.equals("h")) {
+                     instant = instant.plus(Duration.ofHours((long)num));
+                  }
+                  break;
+               case 109:
+                  if (typ.equals("m")) {
+                     instant = instant.plus(Duration.ofMinutes((long)num));
+                  }
             }
          }
 
