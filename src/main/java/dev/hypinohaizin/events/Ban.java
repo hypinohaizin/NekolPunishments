@@ -63,9 +63,9 @@ public class Ban implements CommandExecutor {
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
                         target.kickPlayer("§c§lBANNED\n" +
-                                "§6" + "reason \n" +
+                                "§6" + reason +"\n" +
                                 "§cThis ban is permanent\n" +
-                                "§aAppeal ID: §e" + playerData.getString(uuid + pwd + "\nCreate a ticket in Discord (Fast Support)"));
+                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(String.valueOf(uuid) + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
                      }

@@ -79,7 +79,7 @@ public class TempBan implements CommandExecutor {
                         target.kickPlayer("§c§lBANNED\n" +
                                 "§6" + reason + "\n" +
                                 "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt(uuid + ".ban.length") - unixTime) + "\n\n" +
-                                "§aAppeal ID: §e" + playerData.getString(uuid + pwd + "\nCreate a ticket in Discord (Fast Support)"));
+                                "§aAppeal ID: §e" + playerData.getString(playerData.getString(String.valueOf(uuid) + ".ban.id" + "\nCreate a ticket in Discord (Fast Support)")));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
