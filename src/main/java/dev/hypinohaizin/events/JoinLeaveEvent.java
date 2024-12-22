@@ -45,13 +45,17 @@ public class JoinLeaveEvent implements Listener {
 
          event.setJoinMessage((String)null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§cYou are permanently banned from this server!\n\n§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
+            event.getPlayer().kickPlayer("§c§l BANNED\n" +
+                    "§6" + playerData.getString(uuid + ".ban.reason") + "\n" +
+                    "§cThis ban is permanent\n");
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
 
-            event.getPlayer().kickPlayer("§cYou are temporarily banned for §f" + calculateTime((long)playerData.getInt(uuid + ".ban.length") - unixTime) + " §cfrom this server!\n\n" + "§7Reason: §f" + playerData.getString(uuid + ".ban.reason") + "\n" + "§7Find out more: §b§n" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandoPunishments") + "\n\n" + "§7Ban ID: §f#" + playerData.getString(uuid + ".ban.id") + "\n" + "§7Sharing your Ban ID may affect the processing of your appeal!");
+            event.getPlayer().kickPlayer("§c§l BANNED\n" +
+                    "§6" + playerData.getString(uuid + ".ban.reason") + "\n" +
+                    "§cThis ban will expire in: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) + "\n");
          }
       }
 

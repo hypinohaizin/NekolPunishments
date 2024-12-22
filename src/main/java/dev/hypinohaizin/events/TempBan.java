@@ -72,12 +72,12 @@ public class TempBan implements CommandExecutor {
                      playerData.set(uuid + ".ban.length", unixTime + banTime);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
-                        target.kickPlayer("§c§lBANNED\n" +
+                        sender.sendMessage("§c BANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
+                        target.kickPlayer("§c§l BANNED\n" +
                                 "§6" + reason + "\n" +
-                                "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime) + "\n" + "§7Find out more: §b§n" + (AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("bandomain"));
+                                "§cThis ban will expire in: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime) + "\n");
                      } else {
-                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
+                        sender.sendMessage("§c BANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
 
 
