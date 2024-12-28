@@ -47,7 +47,6 @@ public class Unmute implements CommandExecutor {
                      playerData.set(uuid + ".mute.ismuted", false);
                      playerData.set(uuid + ".mute.reason", "");
                      playerData.set(uuid + ".mute.length", 0);
-                     playerData.set(uuid + ".mute.id", "");
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§aUnmuted " + Bukkit.getPlayer(args[0]).getName());

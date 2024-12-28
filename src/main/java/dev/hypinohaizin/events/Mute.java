@@ -73,16 +73,12 @@ public class Mute implements CommandExecutor {
                      playerData.set(uuid + ".mute.length", unixTime + muteTime);
                      String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                      String pwd = RandomStringUtils.random(8, characters);
-                     playerData.set(uuid + ".mute.id", pwd);
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§aMuted " + Bukkit.getPlayer(args[0]).getName() + " for " + args[1] + " for " + reason);
                         target.sendMessage("§c§l§m---------------------------------------------");
                         target.sendMessage("§cYou are currently muted for " + reason + ".");
                         target.sendMessage("§7Your mute will expire in §c" + calculateTime((long)playerData.getInt(uuid + ".mute.length") - unixTime));
-                        target.sendMessage("");
-                        target.sendMessage("§7Find out more here: §e" + ((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getConfig().getString("mutedoPunishments"));
-                        target.sendMessage("§7Mute ID: §f#" + playerData.getString(uuid + ".mute.id"));
                         target.sendMessage("§c§l§m---------------------------------------------");
                      } else {
                         sender.sendMessage("§aMuted " + args[0] + " for " + args[1] + " for " + reason);

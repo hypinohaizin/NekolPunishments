@@ -45,16 +45,13 @@ public class JoinLeaveEvent implements Listener {
 
          event.setJoinMessage((String)null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§c§l BANNED\n" +
-                    "§6" + playerData.getString(uuid + ".ban.reason") + "\n" +
-                    "§cThis ban is permanent\n");
+            event.getPlayer().kickPlayer("§c§lBANNED!" );
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
 
-            event.getPlayer().kickPlayer("§c§l BANNED\n" +
-                    "§6" + playerData.getString(uuid + ".ban.reason") + "\n" +
+            event.getPlayer().kickPlayer("§c§lBANNED\n" +
                     "§cThis ban will expire in: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) + "\n");
          }
       }

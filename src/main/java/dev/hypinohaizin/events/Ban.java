@@ -59,10 +59,10 @@ public class Ban implements CommandExecutor {
                      playerData.set(uuid + ".ban.length", -1);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§c BANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
-                        target.kickPlayer("§c§l BANNED\n" + "§6" + reason + "\n" + "§cThis ban is permanent\n");
+                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
+                        target.kickPlayer("§c§lBANNED!");
                      } else {
-                        sender.sendMessage("§c BANNED §6" + args[0] + " §cfor §e" + reason);
+                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
                      }
 
                   } catch (IOException var12) {
