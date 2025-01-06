@@ -88,7 +88,7 @@ public class TempBan implements CommandExecutor {
                }
             }
          } else {
-            sender.sendMessage("§c無効なコマンド構文: /tempban <name> <length> <reason>");
+            sender.sendMessage("§c無効なコマンド構文: /tempban <名前> <期間> <理由>");
          }
       } else {
          sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");

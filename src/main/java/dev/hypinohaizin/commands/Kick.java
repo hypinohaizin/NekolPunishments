@@ -24,9 +24,9 @@ public class Kick implements CommandExecutor {
             }
 
             sender.sendMessage("§a" + Bukkit.getPlayer(args[0]).getName() + "が 理由:" + reason + "のためKickされました。");
-            target.kickPlayer("§6You have been kicked!\n\n§7Reason: §f" + reason);
+            target.kickPlayer("§6kicked!\n§7理由: §f" + reason);
          } else {
-            sender.sendMessage("§c無効なコマンド構文: /kick <name> <reason>");
+            sender.sendMessage("§c無効なコマンド構文: /kick <名前> <理由>");
          }
       } else {
          sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
