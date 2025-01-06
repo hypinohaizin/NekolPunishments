@@ -1,4 +1,3 @@
-
 package dev.hypinohaizin.commands;
 
 import java.io.File;
@@ -39,7 +38,7 @@ public class Ban implements CommandExecutor {
             }
 
             if (uuid == null) {
-               sender.sendMessage("§cそのプレイヤーは存在しません");
+               sender.sendMessage("§cそのプレイヤーは存在しません。");
                return false;
             }
 
@@ -64,7 +63,7 @@ public class Ban implements CommandExecutor {
                }
             }
          } else {
-            sender.sendMessage("§c無効なコマンド構文: /ban <name>");
+            sender.sendMessage("§c無効なコマンド構文: /ban <名前> <理由>");
          }
       } else {
          sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");

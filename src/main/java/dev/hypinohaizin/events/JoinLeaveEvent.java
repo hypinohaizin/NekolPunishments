@@ -50,7 +50,7 @@ public class JoinLeaveEvent implements Listener {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
-            event.getPlayer().kickPlayer("§6Banned!\n" +
+            event.getPlayer().kickPlayer("§6Banned! 理由:" + ".ban.reason" + "\n" +
                     "§c BAN終了までの期間: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) );
          }
       }

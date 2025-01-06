@@ -37,7 +37,7 @@ public class Unban implements CommandExecutor {
             }
 
             if (uuid == null) {
-               sender.sendMessage("§cPlayer does not exist.");
+               sender.sendMessage("§cそのプレイヤーは存在しません。");
                return false;
             }
 
@@ -50,15 +50,15 @@ public class Unban implements CommandExecutor {
                      playerData.set(uuid + ".ban.id", "");
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§aUnbanned " + Bukkit.getPlayer(args[0]).getName());
+                        sender.sendMessage("§a" + Bukkit.getPlayer(args[0]).getName() + "のBANが解除されました。");
                      } else {
-                        sender.sendMessage("§aUnbanned " + args[0]);
+                        sender.sendMessage("§a" + args[0] + "のBANが解除されました。");
                      }
                   } catch (IOException var11) {
                      var11.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cそのプレイヤーはBANされてないです。");
+                  sender.sendMessage("§cそのプレイヤーはBANされてません。");
                }
             }
          } else {

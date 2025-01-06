@@ -23,7 +23,7 @@ public class Kick implements CommandExecutor {
                return false;
             }
 
-            sender.sendMessage("§aKicked player " + Bukkit.getPlayer(args[0]).getName() + " for " + reason);
+            sender.sendMessage("§a" + Bukkit.getPlayer(args[0]).getName() + "が 理由:" + reason + "のためKickされました。");
             target.kickPlayer("§6You have been kicked!\n\n§7Reason: §f" + reason);
          } else {
             sender.sendMessage("§c無効なコマンド構文: /kick <name> <reason>");
