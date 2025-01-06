@@ -1,5 +1,9 @@
 package dev.hypinohaizin;
 
+import dev.hypinohaizin.commands.Ban;
+import dev.hypinohaizin.commands.Kick;
+import dev.hypinohaizin.commands.TempBan;
+import dev.hypinohaizin.commands.Unban;
 import dev.hypinohaizin.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -7,15 +11,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AnniPunishments extends JavaPlugin {
    public void onEnable() {
       this.loadConfig();
-      System.out.println("[AnniPunishments] Plugin Loaded...");
+      System.out.println("[AnniPunishments] Plugin Loding...");
       Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
-      Bukkit.getPluginManager().registerEvents(new PlayerChat(), this);
-      this.getCommand("mute").setExecutor(new Mute());
-      this.getCommand("unmute").setExecutor(new Unmute());
       this.getCommand("kick").setExecutor(new Kick());
       this.getCommand("tempban").setExecutor(new TempBan());
       this.getCommand("ban").setExecutor(new Ban());
       this.getCommand("unban").setExecutor(new Unban());
+      System.out.println("[AnniPunishments] Plugin Loaded!...");
    }
 
    public void loadConfig() {

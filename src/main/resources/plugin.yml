@@ -2,17 +2,13 @@ name: AnniPunishments
 version: 1.0
 main: dev.hypinohaizin.AnniPunishments
 author: Hypinohaizin
-description: AnniBanPlugin
+description: Ban,Kick,UnBan,Report(soon)
 commands:
-  mute:
-    description: Mute a player
   kick:
     description: Kick a player
   tempban:
     description: Temporarily ban a player
   ban:
     description: Permanently ban a player
-  unmute:
-    description: Unmute a player
   unban:
     description: Unban a player

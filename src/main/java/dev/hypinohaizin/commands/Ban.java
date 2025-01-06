@@ -1,4 +1,5 @@
-package dev.hypinohaizin.events;
+
+package dev.hypinohaizin.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +14,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Unmute implements CommandExecutor {
+public class Ban implements CommandExecutor {
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-      if (sender.hasPermission("punishments.unmute")) {
-         if (args.length >= 1) {
+      if (sender.hasPermission("punishments.ban")) {
+         if (args.length >= 2) {
             Player target = Bukkit.getPlayerExact(args[0]);
             File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
@@ -25,13 +26,14 @@ public class Unmute implements CommandExecutor {
                uuid = target.getPlayer().getUniqueId().toString();
             }
 
+            String characters;
             if (uuid == null) {
-               Iterator var10 = playerData.getKeys(false).iterator();
+               Iterator var11 = playerData.getKeys(false).iterator();
 
-               while(var10.hasNext()) {
-                  String key = (String)var10.next();
-                  if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = key;
+               while(var11.hasNext()) {
+                  characters = (String)var11.next();
+                  if (playerData.getString(characters + ".name").equalsIgnoreCase(args[0])) {
+                     uuid = characters;
                   }
                }
             }
@@ -42,26 +44,27 @@ public class Unmute implements CommandExecutor {
             }
 
             if (playerData.contains(uuid)) {
-               if (playerData.getBoolean(uuid + ".mute.ismuted")) {
+               if (!playerData.getBoolean(uuid + ".ban.isbanned")) {
                   try {
-                     playerData.set(uuid + ".mute.ismuted", false);
-                     playerData.set(uuid + ".mute.reason", "");
-                     playerData.set(uuid + ".mute.length", 0);
+                     playerData.set(uuid + ".ban.isbanned", true);
+                     playerData.set(uuid + ".ban.length", -1);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§aUnmuted " + Bukkit.getPlayer(args[0]).getName());
+                        sender.sendMessage("§cBanned §6" + Bukkit.getPlayer(args[0]).getName());
+                        target.kickPlayer("§6Banned!");
                      } else {
-                        sender.sendMessage("§aUnmuted " + args[0]);
+                        sender.sendMessage("§cBanned §6" + args[0]);
                      }
-                  } catch (IOException var11) {
-                     var11.printStackTrace();
+
+                  } catch (IOException var12) {
+                     var12.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is not muted!");
+                  sender.sendMessage("§cPlayer is already banned!");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /unmute <name>");
+            sender.sendMessage("§cInvalid syntax. Correct: /ban <name>");
          }
       } else {
          sender.sendMessage("§cYou do not have permission to execute this command!");

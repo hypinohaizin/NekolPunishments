@@ -16,7 +16,7 @@ public class JoinLeaveEvent implements Listener {
    @EventHandler
    public void onLeave(PlayerQuitEvent event) {
       String uuid = event.getPlayer().getUniqueId().toString();
-      File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       if (playerData.contains(uuid) && playerData.getBoolean(uuid + ".ban.isbanned")) {
          event.setQuitMessage((String)null);
@@ -26,7 +26,7 @@ public class JoinLeaveEvent implements Listener {
 
    @EventHandler
    public void onJoin(PlayerJoinEvent event) {
-      File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       String uuid = event.getPlayer().getUniqueId().toString();
       long unixTime = System.currentTimeMillis() / 1000L;
@@ -45,14 +45,13 @@ public class JoinLeaveEvent implements Listener {
 
          event.setJoinMessage((String)null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§c§lBANNED!" );
+            event.getPlayer().kickPlayer("§6Banned!");
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
-
-            event.getPlayer().kickPlayer("§c§lBANNED\n" +
-                    "§cThis ban will expire in: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) + "\n");
+            event.getPlayer().kickPlayer("§6Banned!\n" +
+                    "§c expire in: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) );
          }
       }
 
@@ -61,15 +60,10 @@ public class JoinLeaveEvent implements Listener {
             playerData.createSection(uuid);
             playerData.set(uuid + ".name", event.getPlayer().getName());
             playerData.createSection(uuid + ".ban");
-            playerData.createSection(uuid + ".mute");
             playerData.set(uuid + ".ban.isbanned", false);
             playerData.set(uuid + ".ban.reason", "");
             playerData.set(uuid + ".ban.length", 0);
             playerData.set(uuid + ".ban.id", "");
-            playerData.set(uuid + ".mute.ismuted", false);
-            playerData.set(uuid + ".mute.reason", "");
-            playerData.set(uuid + ".mute.length", 0);
-            playerData.set(uuid + ".mute.id", "");
             playerData.save(playerfile);
          } catch (IOException var8) {
             var8.printStackTrace();

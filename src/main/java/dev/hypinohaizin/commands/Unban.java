@@ -1,12 +1,10 @@
-
-package dev.hypinohaizin.events;
+package dev.hypinohaizin.commands;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
 import dev.hypinohaizin.AnniPunishments;
-import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,17 +13,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Ban implements CommandExecutor {
+public class Unban implements CommandExecutor {
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-      if (sender.hasPermission("punishments.ban")) {
-         if (args.length >= 2) {
-            String reason = "";
-
-            for(int i = 1; i < args.length; ++i) {
-               reason = reason + args[i] + " ";
-            }
-
-            reason = reason.substring(0, reason.length() - 1);
+      if (sender.hasPermission("punishments.unban")) {
+         if (args.length >= 1) {
             Player target = Bukkit.getPlayerExact(args[0]);
             File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
@@ -34,14 +25,13 @@ public class Ban implements CommandExecutor {
                uuid = target.getPlayer().getUniqueId().toString();
             }
 
-            String characters;
             if (uuid == null) {
-               Iterator var11 = playerData.getKeys(false).iterator();
+               Iterator var10 = playerData.getKeys(false).iterator();
 
-               while(var11.hasNext()) {
-                  characters = (String)var11.next();
-                  if (playerData.getString(characters + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = characters;
+               while(var10.hasNext()) {
+                  String key = (String)var10.next();
+                  if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
+                     uuid = key;
                   }
                }
             }
@@ -52,28 +42,27 @@ public class Ban implements CommandExecutor {
             }
 
             if (playerData.contains(uuid)) {
-               if (!playerData.getBoolean(uuid + ".ban.isbanned")) {
+               if (playerData.getBoolean(uuid + ".ban.isbanned")) {
                   try {
-                     playerData.set(uuid + ".ban.isbanned", true);
-                     playerData.set(uuid + ".ban.reason", reason);
-                     playerData.set(uuid + ".ban.length", -1);
+                     playerData.set(uuid + ".ban.isbanned", false);
+                     playerData.set(uuid + ".ban.reason", "");
+                     playerData.set(uuid + ".ban.length", 0);
+                     playerData.set(uuid + ".ban.id", "");
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + reason);
-                        target.kickPlayer("§c§lBANNED!");
+                        sender.sendMessage("§aUnbanned " + Bukkit.getPlayer(args[0]).getName());
                      } else {
-                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + reason);
+                        sender.sendMessage("§aUnbanned " + args[0]);
                      }
-
-                  } catch (IOException var12) {
-                     var12.printStackTrace();
+                  } catch (IOException var11) {
+                     var11.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is already banned!");
+                  sender.sendMessage("§cPlayer is not banned!");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /ban <name> <reason>");
+            sender.sendMessage("§cInvalid syntax. Correct: /unban <name>");
          }
       } else {
          sender.sendMessage("§cYou do not have permission to execute this command!");

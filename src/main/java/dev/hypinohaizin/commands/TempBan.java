@@ -1,5 +1,4 @@
-package dev.hypinohaizin.events;
-
+package dev.hypinohaizin.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dev.hypinohaizin.AnniPunishments;
-import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,11 +19,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Mute implements CommandExecutor {
+public class TempBan implements CommandExecutor {
    private static final Pattern periodPattern = Pattern.compile("([0-9]+)([hdwmy])");
 
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-      if (sender.hasPermission("punishments.mute")) {
+      if (sender.hasPermission("punishments.tempban")) {
          if (args.length >= 3) {
             String reason = "";
 
@@ -59,39 +57,37 @@ public class Mute implements CommandExecutor {
             }
 
             long unixTime = System.currentTimeMillis() / 1000L;
-            long muteTime = parsePeriod(args[1]) / 1000L - 1L;
-            if (muteTime < 59L) {
-               sender.sendMessage("§cYou can not mute someone for less than 1 minute.");
+            long banTime = parsePeriod(args[1]) / 1000L - 1L;
+            if (banTime < 59L) {
+               sender.sendMessage("§cYou can not ban someone for less than 1 minute.");
                return false;
             }
 
             if (playerData.contains(uuid)) {
-               if (!playerData.getBoolean(uuid + ".mute.ismuted")) {
+               if (!playerData.getBoolean(uuid + ".ban.isbanned")) {
                   try {
-                     playerData.set(uuid + ".mute.ismuted", true);
-                     playerData.set(uuid + ".mute.reason", reason);
-                     playerData.set(uuid + ".mute.length", unixTime + muteTime);
-                     String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                     String pwd = RandomStringUtils.random(8, characters);
+                     playerData.set(uuid + ".ban.isbanned", true);
+                     playerData.set(uuid + ".ban.reason", reason);
+                     playerData.set(uuid + ".ban.length", unixTime + banTime);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§aMuted " + Bukkit.getPlayer(args[0]).getName() + " for " + args[1] + " for " + reason);
-                        target.sendMessage("§c§l§m---------------------------------------------");
-                        target.sendMessage("§cYou are currently muted for " + reason + ".");
-                        target.sendMessage("§7Your mute will expire in §c" + calculateTime((long)playerData.getInt(uuid + ".mute.length") - unixTime));
-                        target.sendMessage("§c§l§m---------------------------------------------");
+                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
+                        target.kickPlayer("§6Banned!\n" +
+                                "§c expire in: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
                      } else {
-                        sender.sendMessage("§aMuted " + args[0] + " for " + args[1] + " for " + reason);
+                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
+
+
                   } catch (IOException var16) {
                      var16.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is already muted!");
+                  sender.sendMessage("§cPlayer is already banned!");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /mute <name> <length> <reason>");
+            sender.sendMessage("§cInvalid syntax. Correct: /tempban <name> <length> <reason>");
          }
       } else {
          sender.sendMessage("§cYou do not have permission to execute this command!");
@@ -121,20 +117,20 @@ public class Mute implements CommandExecutor {
             int num = Integer.parseInt(matcher.group(1));
             String typ = matcher.group(2);
             switch(typ.hashCode()) {
-            case 100:
-               if (typ.equals("d")) {
-                  instant = instant.plus(Duration.ofDays((long)num));
-               }
-               break;
-            case 104:
-               if (typ.equals("h")) {
-                  instant = instant.plus(Duration.ofHours((long)num));
-               }
-               break;
-            case 109:
-               if (typ.equals("m")) {
-                  instant = instant.plus(Duration.ofMinutes((long)num));
-               }
+               case 100:
+                  if (typ.equals("d")) {
+                     instant = instant.plus(Duration.ofDays((long)num));
+                  }
+                  break;
+               case 104:
+                  if (typ.equals("h")) {
+                     instant = instant.plus(Duration.ofHours((long)num));
+                  }
+                  break;
+               case 109:
+                  if (typ.equals("m")) {
+                     instant = instant.plus(Duration.ofMinutes((long)num));
+                  }
             }
          }
 
