@@ -58,14 +58,14 @@ public class Unban implements CommandExecutor {
                      var11.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is not banned!");
+                  sender.sendMessage("§cそのプレイヤーはBANされてないです。");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /unban <name>");
+            sender.sendMessage("§c無効なコマンド構文: /unban <name>");
          }
       } else {
-         sender.sendMessage("§cYou do not have permission to execute this command!");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
       }
 
       return false;

@@ -39,7 +39,7 @@ public class Ban implements CommandExecutor {
             }
 
             if (uuid == null) {
-               sender.sendMessage("§cPlayer does not exist.");
+               sender.sendMessage("§cそのプレイヤーは存在しません");
                return false;
             }
 
@@ -60,14 +60,14 @@ public class Ban implements CommandExecutor {
                      var12.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is already banned!");
+                  sender.sendMessage("§cそのプレイヤーはすでにBANされています。");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /ban <name>");
+            sender.sendMessage("§c無効なコマンド構文: /ban <name>");
          }
       } else {
-         sender.sendMessage("§cYou do not have permission to execute this command!");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
       }
 
       return false;

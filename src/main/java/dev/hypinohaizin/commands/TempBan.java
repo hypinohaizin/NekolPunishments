@@ -52,14 +52,14 @@ public class TempBan implements CommandExecutor {
             }
 
             if (uuid == null) {
-               sender.sendMessage("§cPlayer does not exist.");
+               sender.sendMessage("§cそのプレイヤーは存在しません");
                return false;
             }
 
             long unixTime = System.currentTimeMillis() / 1000L;
             long banTime = parsePeriod(args[1]) / 1000L - 1L;
             if (banTime < 59L) {
-               sender.sendMessage("§cYou can not ban someone for less than 1 minute.");
+               sender.sendMessage("§c1分未満のBANは設定できません。");
                return false;
             }
 
@@ -73,7 +73,7 @@ public class TempBan implements CommandExecutor {
                      if (target != null) {
                         sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
                         target.kickPlayer("§6Banned!\n" +
-                                "§c expire in: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
+                                "§c BAN終了までの期間: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
                      } else {
                         sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
@@ -83,14 +83,14 @@ public class TempBan implements CommandExecutor {
                      var16.printStackTrace();
                   }
                } else {
-                  sender.sendMessage("§cPlayer is already banned!");
+                  sender.sendMessage("§cそのプレイヤーはすでにBANされています。");
                }
             }
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /tempban <name> <length> <reason>");
+            sender.sendMessage("§c無効なコマンド構文: /tempban <name> <length> <reason>");
          }
       } else {
-         sender.sendMessage("§cYou do not have permission to execute this command!");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
       }
 
       return false;

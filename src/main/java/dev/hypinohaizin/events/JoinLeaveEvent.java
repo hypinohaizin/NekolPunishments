@@ -51,7 +51,7 @@ public class JoinLeaveEvent implements Listener {
                return;
             }
             event.getPlayer().kickPlayer("§6Banned!\n" +
-                    "§c expire in: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) );
+                    "§c BAN終了までの期間: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime) );
          }
       }
 

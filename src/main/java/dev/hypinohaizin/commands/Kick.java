@@ -19,17 +19,17 @@ public class Kick implements CommandExecutor {
 
             Player target = Bukkit.getPlayerExact(args[0]);
             if (target == null) {
-               sender.sendMessage("§cPlayer does not exist or offline.");
+               sender.sendMessage("§cそのプレイヤーは存在しないか存在しません。");
                return false;
             }
 
             sender.sendMessage("§aKicked player " + Bukkit.getPlayer(args[0]).getName() + " for " + reason);
             target.kickPlayer("§6You have been kicked!\n\n§7Reason: §f" + reason);
          } else {
-            sender.sendMessage("§cInvalid syntax. Correct: /kick <name> <reason>");
+            sender.sendMessage("§c無効なコマンド構文: /kick <name> <reason>");
          }
       } else {
-         sender.sendMessage("§cYou do not have permission to execute this command!");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
       }
 
       return false;
