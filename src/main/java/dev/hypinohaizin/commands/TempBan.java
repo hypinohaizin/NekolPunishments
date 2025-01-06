@@ -71,11 +71,12 @@ public class TempBan implements CommandExecutor {
                      playerData.set(uuid + ".ban.length", unixTime + banTime);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§cBANNED §6" + Bukkit.getPlayer(args[0]).getName() + " §cfor §e" + args[1] + " §cfor §b" + reason);
-                        target.kickPlayer("§6Banned! 理由:" + reason + "\n" +
+                        sender.sendMessage("§c" + Bukkit.getPlayer(args[0]).getName() + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
+                        target.kickPlayer("§6Banned!\n" +" 理由:" + reason + "\n" +
                                 "§c BAN終了までの期間: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
                      } else {
-                        sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
+                        sender.sendMessage("§c" + args[0] + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
+                        //sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
                      }
 
 
