@@ -1,6 +1,6 @@
 # AnniPunishments
 
-AnniPushMentsは、特定のサーバー向けに開発されたBan/Kickプラグインです。  
+AnniPunishmentsは、特定のサーバー向けに開発されたBan/Kickプラグインです。  
 日本語のみをサポートしており、英語には対応していません。  
 
 ## 対応バージョン
