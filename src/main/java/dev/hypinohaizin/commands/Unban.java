@@ -18,7 +18,7 @@ public class Unban implements CommandExecutor {
       if (sender.hasPermission("punishments.unban")) {
          if (args.length >= 1) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -26,14 +26,11 @@ public class Unban implements CommandExecutor {
             }
 
             if (uuid == null) {
-               Iterator var10 = playerData.getKeys(false).iterator();
-
-               while(var10.hasNext()) {
-                  String key = (String)var10.next();
-                  if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = key;
-                  }
-               }
+                for (String key : playerData.getKeys(false)) {
+                    if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
+                        uuid = key;
+                    }
+                }
             }
 
             if (uuid == null) {
@@ -55,7 +52,6 @@ public class Unban implements CommandExecutor {
                         sender.sendMessage("§a" + args[0] + "のBANが解除されました。");
                      }
                   } catch (IOException var11) {
-                     var11.printStackTrace();
                   }
                } else {
                   sender.sendMessage("§cそのプレイヤーはBANされてません。");

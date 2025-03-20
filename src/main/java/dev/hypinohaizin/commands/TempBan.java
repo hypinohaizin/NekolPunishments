@@ -41,14 +41,11 @@ public class TempBan implements CommandExecutor {
             }
 
             if (uuid == null) {
-               Iterator var11 = playerData.getKeys(false).iterator();
-
-               while(var11.hasNext()) {
-                  String key = (String)var11.next();
-                  if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = key;
-                  }
-               }
+                for (String key : playerData.getKeys(false)) {
+                    if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {
+                        uuid = key;
+                    }
+                }
             }
 
             if (uuid == null) {
@@ -112,7 +109,7 @@ public class TempBan implements CommandExecutor {
       if (period == null) {
          return null;
       } else {
-         period = period.toLowerCase(Locale.ENGLISH);
+         period = period.toLowerCase(Locale.JAPANESE);
          Matcher matcher = periodPattern.matcher(period);
          Instant instant = Instant.EPOCH;
 
@@ -122,17 +119,17 @@ public class TempBan implements CommandExecutor {
             switch(typ.hashCode()) {
                case 100:
                   if (typ.equals("d")) {
-                     instant = instant.plus(Duration.ofDays((long)num));
+                     instant = instant.plus(Duration.ofDays(num));
                   }
                   break;
                case 104:
                   if (typ.equals("h")) {
-                     instant = instant.plus(Duration.ofHours((long)num));
+                     instant = instant.plus(Duration.ofHours(num));
                   }
                   break;
                case 109:
                   if (typ.equals("m")) {
-                     instant = instant.plus(Duration.ofMinutes((long)num));
+                     instant = instant.plus(Duration.ofMinutes(num));
                   }
             }
          }

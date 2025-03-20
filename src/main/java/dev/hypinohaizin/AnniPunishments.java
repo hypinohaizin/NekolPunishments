@@ -11,13 +11,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AnniPunishments extends JavaPlugin {
    public void onEnable() {
       this.loadConfig();
-      System.out.println("[AnniPunishments] Plugin Loding...");
+      getLogger().info("[AnniPunishments] Plugin Loding...");
       Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
       this.getCommand("kick").setExecutor(new Kick());
       this.getCommand("tempban").setExecutor(new TempBan());
       this.getCommand("ban").setExecutor(new Ban());
       this.getCommand("unban").setExecutor(new Unban());
-      System.out.println("[AnniPunishments] Plugin Loaded!...");
+      getLogger().info("[AnniPunishments] Plugin Loaded!...");
    }
 
    public void loadConfig() {

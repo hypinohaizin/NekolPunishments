@@ -23,7 +23,7 @@ public class Ban implements CommandExecutor {
             }
             reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
+            File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
             String uuid = null;
             if (target != null) {
@@ -32,14 +32,12 @@ public class Ban implements CommandExecutor {
 
             String characters;
             if (uuid == null) {
-               Iterator var11 = playerData.getKeys(false).iterator();
-
-               while(var11.hasNext()) {
-                  characters = (String)var11.next();
-                  if (playerData.getString(characters + ".name").equalsIgnoreCase(args[0])) {
-                     uuid = characters;
-                  }
-               }
+                for (String s : playerData.getKeys(false)) {
+                    characters = s;
+                    if (playerData.getString(characters + ".name").equalsIgnoreCase(args[0])) {
+                        uuid = characters;
+                    }
+                }
             }
 
             if (uuid == null) {
@@ -63,7 +61,6 @@ public class Ban implements CommandExecutor {
                      }
 
                   } catch (IOException var12) {
-                     var12.printStackTrace();
                   }
                } else {
                   sender.sendMessage("§cそのプレイヤーはすでにBANされています。");

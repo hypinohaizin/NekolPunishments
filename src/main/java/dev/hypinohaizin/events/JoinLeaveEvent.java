@@ -38,13 +38,12 @@ public class JoinLeaveEvent implements Listener {
                playerData.set(uuid + ".ban.length", 0);
                playerData.save(playerfile);
             } catch (IOException var9) {
-               var9.printStackTrace();
             }
          }
 
          event.setJoinMessage((String)null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§6Banned! 理由: " + (playerData.getInt(uuid + ".ban.reason")));
+            event.getPlayer().kickPlayer("§6Banned! \n理由: " + (playerData.getInt(uuid + ".ban.reason")));
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
@@ -64,7 +63,6 @@ public class JoinLeaveEvent implements Listener {
             playerData.set(uuid + ".ban.length", 0);
             playerData.save(playerfile);
          } catch (IOException var8) {
-            var8.printStackTrace();
          }
       }
 
@@ -75,7 +73,6 @@ public class JoinLeaveEvent implements Listener {
       long hours = TimeUnit.SECONDS.toHours(seconds) - (long)(days * 24);
       long minute = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.SECONDS.toHours(seconds) * 60L;
       long second = TimeUnit.SECONDS.toSeconds(seconds) - TimeUnit.SECONDS.toMinutes(seconds) * 60L;
-      String time = (" " + days + "d " + hours + "h " + minute + "m " + second + "s").toString().replace(" 0d", "").replace(" 0h", "").replace(" 0m", "").replace(" 0s", "").replaceFirst(" ", "");
-      return time;
+       return (" " + days + "d " + hours + "h " + minute + "m " + second + "s").replace(" 0d", "").replace(" 0h", "").replace(" 0m", "").replace(" 0s", "").replaceFirst(" ", "");
    }
 }

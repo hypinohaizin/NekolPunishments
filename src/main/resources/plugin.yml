@@ -2,7 +2,7 @@ name: AnniPunishments
 version: 1.0
 main: dev.hypinohaizin.AnniPunishments
 author: Hypinohaizin
-description: Ban,Kick,UnBan,Report(soon)
+description: Ban,Kick,UnBan
 commands:
   kick:
     description: Kick a player
