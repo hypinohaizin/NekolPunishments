@@ -1,6 +1,6 @@
-name: AnniPunishments
-version: 1.0
-main: dev.hypinohaizin.AnniPunishments
+name: NekolPunishments
+version: 1.4
+main: dev.hypinohaizin.NekolPunishments
 author: Hypinohaizin
 description: Ban,Kick,UnBan
 commands:

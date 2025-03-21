@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import dev.hypinohaizin.AnniPunishments;
+import dev.hypinohaizin.NekolPunishments;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,7 @@ public class JoinLeaveEvent implements Listener {
    @EventHandler
    public void onLeave(PlayerQuitEvent event) {
       String uuid = event.getPlayer().getUniqueId().toString();
-      File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(NekolPunishments.getPlugin(NekolPunishments.class).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       if (playerData.contains(uuid) && playerData.getBoolean(uuid + ".ban.isbanned")) {
          event.setQuitMessage(null);
@@ -26,7 +26,7 @@ public class JoinLeaveEvent implements Listener {
 
    @EventHandler
    public void onJoin(PlayerJoinEvent event) {
-      File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
+      File playerfile = new File(NekolPunishments.getPlugin(NekolPunishments.class).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       String uuid = event.getPlayer().getUniqueId().toString();
       long unixTime = System.currentTimeMillis() / 1000L;

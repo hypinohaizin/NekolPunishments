@@ -8,7 +8,7 @@ import dev.hypinohaizin.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class AnniPunishments extends JavaPlugin {
+public class NekolPunishments extends JavaPlugin {
    public void onEnable() {
       this.loadConfig();
       Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
@@ -16,7 +16,7 @@ public class AnniPunishments extends JavaPlugin {
       this.getCommand("tempban").setExecutor(new TempBan());
       this.getCommand("ban").setExecutor(new Ban());
       this.getCommand("unban").setExecutor(new Unban());
-      getLogger().info("[AnniPunishments] Plugin Loaded!...");
+      getLogger().info("[NekolPunishments] Plugin Loaded!...");
    }
 
    public void loadConfig() {

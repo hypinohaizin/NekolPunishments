@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.hypinohaizin</groupId>
-    <artifactId>AnniPunishments</artifactId>
+    <artifactId>NekolPunishments</artifactId>
     <version>1.4</version>
     <packaging>jar</packaging>
 
-    <name>AnniPunishments</name>
+    <name>NekolPunishments</name>
 
     <properties>
         <java.version>17</java.version>

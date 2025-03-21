@@ -4,13 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dev.hypinohaizin.AnniPunishments;
+import dev.hypinohaizin.NekolPunishments;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,7 +32,7 @@ public class TempBan implements CommandExecutor {
 
                reason = reason.substring(0, reason.length() - 1);
                Player target = Bukkit.getPlayerExact(args[0]);
-               File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
+               File playerfile = new File(NekolPunishments.getPlugin(NekolPunishments.class).getDataFolder() + File.separator, "punishments.yml");
                FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
                String uuid = null;
                if (target != null) {
