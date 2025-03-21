@@ -12,7 +12,7 @@ NekolPunishmentsは、特定のサーバー向けに開発されたBan/Kickプ�
 - **Ban画面のインスピレーション**: [ShotBow.net](https://shotbow.net/)  
 
 ## 📥 ダウンロード  
-  [ダウンロード](https://github.com/dada994a/AnniPunishments/releases/tag/1.2)
+  [ダウンロード](https://github.com/dada994a/NekolPunishments/releases)
 
 ## 🔧 インストール方法  
 1. `NekolPunishments.jar` を `plugins` フォルダに配置  
