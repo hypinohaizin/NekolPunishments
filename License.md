@@ -1,15 +1,11 @@
 Copyright (c) 2025 hypinohaizin
 
-Permission is hereby granted to use, modify, and distribute this software, subject to the following conditions:
-
-## Prohibited Actions:
-- Redistribution of this software in any form is strictly prohibited.
-- Using or modifying this software’s code **without proper credit** is strictly prohibited.
+Permission is hereby granted, free of charge, to use and modify this software under the following conditions:
 
 ## Disclaimer:
-This software is provided "as is," without any warranty of any kind.
-The copyright holder assumes **no responsibility for any damages** resulting from its use.
+This software is provided "as is," without any express or implied warranties.  
+The copyright holder assumes no liability for any damages, direct or indirect, arising from the use of this software.
 
 ## Usage Conditions:
-- You are free to use and modify this software **as long as proper credit is given**.
-- **Removing or altering credit information is strictly prohibited.**
+- You are free to use and modify this software for personal and non-commercial purposes, provided that proper credit is given to the original author.
+- Any modified versions of this software must retain this license and credit information.
