@@ -46,9 +46,9 @@ public class Unban implements CommandExecutor {
                      playerData.set(uuid + ".ban.id", "");
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§a" + Bukkit.getPlayer(args[0]).getName() + "のBANが解除されました。");
+                        sender.sendMessage("§a[NekolPunishments]" + Bukkit.getPlayer(args[0]).getName() + "のBANが解除されました。");
                      } else {
-                        sender.sendMessage("§a" + args[0] + "のBANが解除されました。");
+                        sender.sendMessage("§a[NekolPunishments]" + args[0] + "のBANが解除されました。");
                      }
                   } catch (IOException ignored) {
                   }

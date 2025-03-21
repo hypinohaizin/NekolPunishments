@@ -52,11 +52,11 @@ public class Ban implements CommandExecutor {
                      playerData.set(uuid + ".ban.length", -1);
                      playerData.save(playerfile);
                      if (target != null) {
-                        sender.sendMessage("§c" + Bukkit.getPlayer(args[0]).getName() + "さんが 理由: " + reason + "のため永久BANされました");
+                        sender.sendMessage("§c[NekolPunishments]" + Bukkit.getPlayer(args[0]).getName() + "さんが 理由: " + reason + "のため永久BANされました");
                         target.kickPlayer("§6Banned! \n理由: "+ reason);
-                        Bukkit.broadcastMessage("§c§l" + target.getDisplayName() + "さんが理由:" + reason +"のため永久BANされました");
+                        Bukkit.broadcastMessage("§c§l[NekoLMC]" + target.getDisplayName() + "さんが理由:" + reason +"のため永久BANされました");
                      } else {
-                        sender.sendMessage("§cBanned §6" + args[0] + "さんが 理由: " + reason + "のため永久BANされました");
+                        sender.sendMessage("§c[NekolPunishments]Banned §6" + args[0] + "さんが 理由: " + reason + "のため永久BANされました");
                      }
 
                   } catch (IOException ignored) {
