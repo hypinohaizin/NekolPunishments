@@ -37,7 +37,7 @@ public class JoinLeaveEvent implements Listener {
                playerData.set(uuid + ".ban.reason", "");
                playerData.set(uuid + ".ban.length", 0);
                playerData.save(playerfile);
-            } catch (IOException var9) {
+            } catch (IOException ignored) {
             }
          }
 
@@ -48,7 +48,7 @@ public class JoinLeaveEvent implements Listener {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
-            event.getPlayer().kickPlayer("§6Banned!\\n" + "理由: " + playerData.getString(uuid + ".ban.reason") + "\\n" +
+            event.getPlayer().kickPlayer("§6Banned!\n" + "理由: " + playerData.getString(uuid + ".ban.reason") + "\n" +
                     "§c BAN終了までの期間: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime));
 
          }
@@ -63,7 +63,7 @@ public class JoinLeaveEvent implements Listener {
             playerData.set(uuid + ".ban.reason", "");
             playerData.set(uuid + ".ban.length", 0);
             playerData.save(playerfile);
-         } catch (IOException var8) {
+         } catch (IOException ignored) {
          }
       }
 

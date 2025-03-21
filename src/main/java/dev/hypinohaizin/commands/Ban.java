@@ -54,13 +54,13 @@ public class Ban implements CommandExecutor {
                      playerData.save(playerfile);
                      if (target != null) {
                         sender.sendMessage("§c" + Bukkit.getPlayer(args[0]).getName() + "さんが 理由: " + reason + "のため永久BANされました");
-                        target.kickPlayer("§6Banned! 理由: "+ reason);
+                        target.kickPlayer("§6Banned! \n理由: "+ reason);
                         Bukkit.broadcastMessage("§c§l" + target.getDisplayName() + "さんが理由:" + reason +"のため永久BANされました");
                      } else {
                         sender.sendMessage("§cBanned §6" + args[0] + "さんが 理由: " + reason + "のため永久BANされました");
                      }
 
-                  } catch (IOException var12) {
+                  } catch (IOException ignored) {
                   }
                } else {
                   sender.sendMessage("§cそのプレイヤーはすでにBANされています。");
@@ -70,7 +70,7 @@ public class Ban implements CommandExecutor {
             sender.sendMessage("§c無効なコマンド構文: /ban <名前> <理由>");
          }
       } else {
-         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合は開発者に報告してください。");
       }
 
       return false;

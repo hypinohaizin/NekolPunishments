@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AnniPunishments extends JavaPlugin {
    public void onEnable() {
       this.loadConfig();
-      getLogger().info("[AnniPunishments] Plugin Loding...");
       Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
       this.getCommand("kick").setExecutor(new Kick());
       this.getCommand("tempban").setExecutor(new TempBan());

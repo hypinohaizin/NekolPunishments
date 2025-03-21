@@ -51,7 +51,7 @@ public class Unban implements CommandExecutor {
                      } else {
                         sender.sendMessage("§a" + args[0] + "のBANが解除されました。");
                      }
-                  } catch (IOException var11) {
+                  } catch (IOException ignored) {
                   }
                } else {
                   sender.sendMessage("§cそのプレイヤーはBANされてません。");
@@ -61,7 +61,7 @@ public class Unban implements CommandExecutor {
             sender.sendMessage("§c無効なコマンド構文: /unban <name>");
          }
       } else {
-         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合は開発者に報告してください。");
       }
 
       return false;

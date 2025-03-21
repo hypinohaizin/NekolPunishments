@@ -70,7 +70,7 @@ public class TempBan implements CommandExecutor {
                         sender.sendMessage("§c" + Bukkit.getPlayer(args[0]).getName() + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
                         target.kickPlayer("§6Banned!\n" +"理由: " + reason + "\n" +
                                 "§c BAN終了までの期間: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
-                        Bukkit.broadcastMessage("§c§l" + target.getDisplayName() + "さんは、" + reason + "のためBANされました");
+                        Bukkit.broadcastMessage("§c§l" + target.getDisplayName() + "さんは、" + reason + "のため" + ".ban.length" + "日間BANされました");
                      } else {
                         sender.sendMessage("§c" + args[0] + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
                         //sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
@@ -78,8 +78,7 @@ public class TempBan implements CommandExecutor {
                      }
 
 
-                  } catch (IOException var16) {
-                     var16.printStackTrace();
+                  } catch (IOException ignored) {
                   }
                } else {
                   sender.sendMessage("§cそのプレイヤーはすでにBANされています。");
@@ -89,7 +88,7 @@ public class TempBan implements CommandExecutor {
             sender.sendMessage("§c無効なコマンド構文: /tempban <名前> <期間> <理由>");
          }
       } else {
-         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合はDevに報告してください。");
+         sender.sendMessage("§cあなたはこのコマンドを実行する権限がありません。\n" + "§c十分な権限があるのに実行できない場合は開発者に報告してください。");
       }
 
       return false;
@@ -100,8 +99,7 @@ public class TempBan implements CommandExecutor {
       long hours = TimeUnit.SECONDS.toHours(seconds) - (long)(days * 24);
       long minute = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.SECONDS.toHours(seconds) * 60L;
       long second = TimeUnit.SECONDS.toSeconds(seconds) - TimeUnit.SECONDS.toMinutes(seconds) * 60L;
-      String time = (" " + days + "d " + hours + "h " + minute + "m " + second + "s").toString().replace(" 0d", "").replace(" 0h", "").replace(" 0m", "").replace(" 0s", "").replaceFirst(" ", "");
-      return time;
+       return (" " + days + "d " + hours + "h " + minute + "m " + second + "s").replace(" 0d", "").replace(" 0h", "").replace(" 0m", "").replace(" 0s", "").replaceFirst(" ", "");
    }
 
    public static Long parsePeriod(String period) {
