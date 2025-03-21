@@ -22,7 +22,7 @@ public class Kick implements CommandExecutor {
                return false;
             }
 
-            sender.sendMessage("§a" + Bukkit.getPlayer(args[0]).getName() + "が 理由:" + reason + "のためKickされました。");
+            sender.sendMessage("§a[NekolPunishments]" + Bukkit.getPlayer(args[0]).getName() + "が 理由:" + reason + "のためKickされました。");
             target.kickPlayer("§6kicked!\n§6理由: §f" + reason);
 
          } else {
