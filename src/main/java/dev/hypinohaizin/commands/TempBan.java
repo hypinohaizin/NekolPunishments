@@ -23,21 +23,22 @@ public class TempBan implements CommandExecutor {
    private static final Pattern periodPattern = Pattern.compile("([0-9]+)([hdwmy])");
 
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-      if (sender.hasPermission("punishments.tempban")) {
-            if (args.length >= 2) {
-               StringBuilder reason = new StringBuilder();
-               for(int i = 1; i < args.length; ++i) {
-                  reason.append(args[i]).append(" ");
+       if (sender.hasPermission("punishments.tempban")) {
+           if (args.length >= 3) {
+               String reason = "";
+
+               for(int i = 2; i < args.length; ++i) {
+                   reason = reason + args[i] + " ";
                }
 
-            Player target = Bukkit.getPlayerExact(args[0]);
-            File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
-            FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
-            String uuid = null;
-            if (target != null) {
-               uuid = target.getPlayer().getUniqueId().toString();
-            }
-
+               reason = reason.substring(0, reason.length() - 1);
+               Player target = Bukkit.getPlayerExact(args[0]);
+               File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
+               FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
+               String uuid = null;
+               if (target != null) {
+                   uuid = target.getPlayer().getUniqueId().toString();
+               }
             if (uuid == null) {
                 for (String key : playerData.getKeys(false)) {
                     if (playerData.getString(key + ".name").equalsIgnoreCase(args[0])) {

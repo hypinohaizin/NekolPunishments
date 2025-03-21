@@ -9,11 +9,12 @@ import org.bukkit.entity.Player;
 
 public class Kick implements CommandExecutor {
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-      if (sender.hasPermission("punishments.kick")) {
-            if (args.length >= 2) {
-               StringBuilder reason = new StringBuilder();
+       if (sender.hasPermission("punishments.kick")) {
+           if (args.length >= 2) {
+               String reason = "";
+
                for(int i = 1; i < args.length; ++i) {
-                  reason.append(args[i]).append(" ");
+                   reason = reason + args[i] + " ";
                }
 
             Player target = Bukkit.getPlayerExact(args[0]);
