@@ -24,14 +24,12 @@ public class TempBan implements CommandExecutor {
 
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
       if (sender.hasPermission("punishments.tempban")) {
-         if (args.length >= 3) {
-            String reason = "";
+            if (args.length >= 2) {
+               StringBuilder reason = new StringBuilder();
+               for(int i = 1; i < args.length; ++i) {
+                  reason.append(args[i]).append(" ");
+               }
 
-            for(int i = 2; i < args.length; ++i) {
-               reason = reason + args[i] + " ";
-            }
-
-            reason = reason.substring(0, reason.length() - 1);
             Player target = Bukkit.getPlayerExact(args[0]);
             File playerfile = new File(((AnniPunishments) AnniPunishments.getPlugin(AnniPunishments.class)).getDataFolder() + File.separator, "punishments.yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);

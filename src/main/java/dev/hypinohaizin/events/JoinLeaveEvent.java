@@ -19,7 +19,7 @@ public class JoinLeaveEvent implements Listener {
       File playerfile = new File(AnniPunishments.getPlugin(AnniPunishments.class).getDataFolder() + File.separator, "punishments.yml");
       FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerfile);
       if (playerData.contains(uuid) && playerData.getBoolean(uuid + ".ban.isbanned")) {
-         event.setQuitMessage((String)null);
+         event.setQuitMessage(null);
       }
 
    }
@@ -41,15 +41,16 @@ public class JoinLeaveEvent implements Listener {
             }
          }
 
-         event.setJoinMessage((String)null);
+         event.setJoinMessage(null);
          if (playerData.getInt(uuid + ".ban.length") == -1) {
-            event.getPlayer().kickPlayer("§6Banned! \n理由: " + (playerData.getInt(uuid + ".ban.reason")));
+            event.getPlayer().kickPlayer("§6Banned! \n理由: " + (playerData.getString(uuid + ".ban.reason")));
          } else {
             if (playerData.getInt(uuid + ".ban.length") == 0) {
                return;
             }
-            event.getPlayer().kickPlayer("§6Banned!\n" + "理由: " + (playerData.getInt(uuid + ".ban.reason" + "\n" +
-                    "§c BAN終了までの期間: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime))));
+            event.getPlayer().kickPlayer("§6Banned!\\n" + "理由: " + playerData.getString(uuid + ".ban.reason") + "\\n" +
+                    "§c BAN終了までの期間: §e" + calculateTime(playerData.getInt(uuid + ".ban.length") - unixTime));
+
          }
       }
 
