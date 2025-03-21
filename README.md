@@ -3,12 +3,10 @@
 AnniPunishmentsは、特定のサーバー向けに開発されたBan/Kickプラグインです。  
 日本語のみをサポートしており、英語には対応していません。  
 
-## 対応バージョン
-- **1.8.2を想定して作られましたそれ以外ではテストをしていません
-
-## 📌 特徴  
-- **シンプルなBan/Kick機能**  
-- **独自のBan画面を実装**  
+## テスト済みバージョン
+- 1.21.4(PaperServer)
+- 1.9x(SpigotServer)
+- 1.8x(SpigotServer)
 
 ## 📜 クレジット  
 - **Ban画面のインスピレーション**: [ShotBow.net](https://shotbow.net/)  
