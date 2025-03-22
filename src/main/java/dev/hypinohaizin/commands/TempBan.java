@@ -71,7 +71,7 @@ public class TempBan implements CommandExecutor {
                                 "§c BAN終了までの期間: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
                         Bukkit.broadcastMessage("§c§l[NekoLMC]" + target.getDisplayName() + "さんは、" + reason + "のため" + args[1] + "日間BANされました");
                      } else {
-                        sender.sendMessage("§c[NekolPunishments]" + args[0] + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
+                        sender.sendMessage("§c[NekolPunishments]" + args[0] + "§6 §cが§e" + args[1] + " §cBANされました 理由:§b" + reason);
                         //sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
 
                      }
@@ -98,7 +98,7 @@ public class TempBan implements CommandExecutor {
       long hours = TimeUnit.SECONDS.toHours(seconds) - (long)(days * 24);
       long minute = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.SECONDS.toHours(seconds) * 60L;
       long second = TimeUnit.SECONDS.toSeconds(seconds) - TimeUnit.SECONDS.toMinutes(seconds) * 60L;
-       return (" " + days + "d " + hours + "h " + minute + "m " + second + "s").replace(" 0d", "").replace(" 0h", "").replace(" 0m", "").replace(" 0s", "").replaceFirst(" ", "");
+       return (" " + days + "日間 " + hours + "時間 " + minute + "分間 " + second + "秒間").replace(" 0日間", "").replace(" 0時間", "").replace(" 0分間", "").replace(" 0秒間", "").replaceFirst(" ", "");
    }
 
    public static Long parsePeriod(String period) {
@@ -114,17 +114,17 @@ public class TempBan implements CommandExecutor {
             String typ = matcher.group(2);
             switch(typ.hashCode()) {
                case 100:
-                  if (typ.equals("d")) {
+                  if (typ.equals("分間")) {
                      instant = instant.plus(Duration.ofDays(num));
                   }
                   break;
                case 104:
-                  if (typ.equals("h")) {
+                  if (typ.equals("時間")) {
                      instant = instant.plus(Duration.ofHours(num));
                   }
                   break;
                case 109:
-                  if (typ.equals("m")) {
+                  if (typ.equals("分間")) {
                      instant = instant.plus(Duration.ofMinutes(num));
                   }
             }
