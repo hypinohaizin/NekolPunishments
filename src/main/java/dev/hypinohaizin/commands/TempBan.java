@@ -69,7 +69,7 @@ public class TempBan implements CommandExecutor {
                         sender.sendMessage("§c[NekolPunishments]" + Bukkit.getPlayer(args[0]).getName() + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
                         target.kickPlayer("§6Banned!\n" +"理由: " + reason + "\n" +
                                 "§c BAN終了までの期間: §e" + calculateTime((long) playerData.getInt((uuid) + ".ban.length") - unixTime));
-                        Bukkit.broadcastMessage("§c§l[NekoLMC]" + target.getDisplayName() + "さんは、" + reason + "のため" + ".ban.length" + "日間BANされました");
+                        Bukkit.broadcastMessage("§c§l[NekoLMC]" + target.getDisplayName() + "さんは、" + reason + "のため" + args[1] + "日間BANされました");
                      } else {
                         sender.sendMessage("§c[NekolPunishments]" + args[0] + "§6 §cが§e" + args[1] + " §c日間BANされました 理由:§b" + reason);
                         //sender.sendMessage("§cBANNED §6" + args[0] + " §cfor §e" + args[1] + " §cfor §b" + reason);
