@@ -1,14 +1,24 @@
 name: NekolPunishments
-version: 1.4
-main: dev.hypinohaizin.NekolPunishments
-author: Hypinohaizin
-description: Ban,Kick,UnBan
+version: 2.0
+main: me.hypinohaizin.NekolPunishments
+author: h_ypi
+api-version: 1.21
+description: Player ban, tempban, kick, and unban commands with YAML storage
+
 commands:
   kick:
-    description: Kick a player
+    description: Kick a player from the server.
+    usage: /kick <player> <reason>
+    permission: nekolpunishments.kick
   tempban:
-    description: Temporarily ban a player
+    description: Temporarily ban a player for a specified duration.
+    usage: /tempban <player> <duration> <reason>
+    permission: nekolpunishments.tempban
   ban:
-    description: Permanently ban a player
+    description: Permanently ban a player.
+    usage: /ban <player> <reason>
+    permission: nekolpunishments.ban
   unban:
-    description: Unban a player
+    description: Unban a player.
+    usage: /unban <player>
+    permission: nekolpunishments.unban
