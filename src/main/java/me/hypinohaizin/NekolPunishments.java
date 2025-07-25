@@ -12,7 +12,7 @@ public class NekolPunishments extends JavaPlugin {
    public void onEnable() {
       INSTANCE = this;
       saveDefaultConfig();
-      getLogger().info("[NekolPunishments] enabled!");
+      getLogger().info("[NekolPunishments] enabled! by h_ypi");
 
       // コマンド
       getCommand("ban").setExecutor(new BanCommand());
@@ -20,6 +20,7 @@ public class NekolPunishments extends JavaPlugin {
       getCommand("tempban").setExecutor(new TempBanCommand());
       getCommand("unban").setExecutor(new UnbanCommand());
       getCommand("unban").setTabCompleter(new UnbanCommand());
+
       // イベント
       getServer().getPluginManager().registerEvents(new JoinLeaveEvent(), this);
    }

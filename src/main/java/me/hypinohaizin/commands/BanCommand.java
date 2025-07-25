@@ -3,6 +3,7 @@ package me.hypinohaizin.commands;
 import java.io.File;
 import java.io.IOException;
 import me.hypinohaizin.NekolPunishments;
+import me.hypinohaizin.util.Webhook;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -62,6 +63,8 @@ public class BanCommand implements CommandExecutor {
          playerData.set(uuid + ".ban.reason", reason);
          playerData.set(uuid + ".ban.length", -1);
          playerData.save(playerFile);
+
+         Webhook.sendEnabledOnly(":hammer: **BAN** - `" + args[0] + "` がBANされました。理由: " + reason);
 
          if (target != null) {
             sender.sendMessage("§c[NekolPunishments] " + target.getName() + " さんが理由: " + reason + " のため永久BANされました");

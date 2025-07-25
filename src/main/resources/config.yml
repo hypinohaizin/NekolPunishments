@@ -1,1 +1,4 @@
-#めも置き場
+#DiscordのWebhookURLを入れるとbanしたときや解除したときに通知が飛ぶよ
+webhook-enabled: true
+
+webhook: "https://discord.com/api/webhooks/xxxx/yyyy"

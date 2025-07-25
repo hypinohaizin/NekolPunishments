@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.hypinohaizin.NekolPunishments;
+import me.hypinohaizin.util.Webhook;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -62,6 +63,9 @@ public class UnbanCommand implements CommandExecutor, TabCompleter {
             playerData.set(uuid + ".ban.length", 0);
             playerData.set(uuid + ".ban.id", "");
             playerData.save(playerFile);
+
+            Webhook.sendEnabledOnly(":white_check_mark: **UNBAN** - `" + args[0] + "` のBANが解除されました。");
+
             if (target != null) {
                sender.sendMessage("§a[NekolPunishments] " + target.getName() + " のBANが解除されました。");
             } else {

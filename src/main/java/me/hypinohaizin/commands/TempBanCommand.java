@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.hypinohaizin.NekolPunishments;
+import me.hypinohaizin.util.Timer;
+import me.hypinohaizin.util.Webhook;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -60,7 +61,7 @@ public class TempBanCommand implements CommandExecutor {
         }
 
         long unixTime = System.currentTimeMillis() / 1000L;
-        Long banPeriodMillis = parsePeriod(args[1]);
+        Long banPeriodMillis = Timer.parsePeriod(args[1]);
         if (banPeriodMillis == null || banPeriodMillis / 1000L < 59L) {
             sender.sendMessage("§c1分未満のBANは設定できません。");
             return true;
@@ -83,9 +84,11 @@ public class TempBanCommand implements CommandExecutor {
             playerData.set(uuid + ".ban.length", unixTime + banTime);
             playerData.save(playerFile);
 
+            Webhook.sendEnabledOnly(":hourglass_flowing_sand: **TEMPBAN** - `" + args[0] + "` が " + args[1] + " 間BANされました。理由: " + reason);
+
             if (target != null) {
                 sender.sendMessage("§c[NekolPunishments]" + target.getName() + " §6§cが§e" + args[1] + " §c間BANされました 理由:§b" + reason);
-                target.kickPlayer("§6Banned!\n理由: " + reason + "\n§cBAN終了までの期間: §e" + calculateTime(playerData.getLong(uuid + ".ban.length") - unixTime));
+                target.kickPlayer("§6Banned!\n理由: " + reason + "\n§cBAN終了までの期間: §e" + Timer.calculateTime(playerData.getLong(uuid + ".ban.length") - unixTime));
                 Bukkit.broadcastMessage("§c§l[NekoLサーバー]" + target.getDisplayName() + "さんは、" + reason + "のため" + args[1] + "間BANされました");
             } else {
                 sender.sendMessage("§c[NekolPunishments]" + args[0] + " §6§cが§e" + args[1] + " §cBANされました 理由:§b" + reason);
@@ -95,38 +98,5 @@ public class TempBanCommand implements CommandExecutor {
         }
 
         return true;
-    }
-
-    public static String calculateTime(long seconds) {
-        int days = (int) TimeUnit.SECONDS.toDays(seconds);
-        long hours = TimeUnit.SECONDS.toHours(seconds) - (days * 24);
-        long minute = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.SECONDS.toHours(seconds) * 60L;
-        long second = seconds - TimeUnit.SECONDS.toMinutes(seconds) * 60L;
-        String result = (" " + days + "d " + hours + "h " + minute + "m " + second + "s")
-                .replace(" 0d", "")
-                .replace(" 0h", "")
-                .replace(" 0m", "")
-                .replace(" 0s", "")
-                .replaceFirst(" ", "");
-        return result.isEmpty() ? "0s" : result;
-    }
-
-    public static Long parsePeriod(String period) {
-        if (period == null) return null;
-        period = period.toLowerCase(Locale.JAPANESE);
-        Matcher matcher = periodPattern.matcher(period);
-        Instant instant = Instant.EPOCH;
-        boolean found = false;
-        while (matcher.find()) {
-            found = true;
-            int num = Integer.parseInt(matcher.group(1));
-            String typ = matcher.group(2);
-            switch (typ) {
-                case "d" -> instant = instant.plus(Duration.ofDays(num));
-                case "h" -> instant = instant.plus(Duration.ofHours(num));
-                case "m" -> instant = instant.plus(Duration.ofMinutes(num));
-            }
-        }
-        return found ? instant.toEpochMilli() : null;
     }
 }

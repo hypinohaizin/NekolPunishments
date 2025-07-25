@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import me.hypinohaizin.NekolPunishments;
+import me.hypinohaizin.util.Timer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -51,7 +52,7 @@ public class JoinLeaveEvent implements Listener {
             }
             event.getPlayer().kickPlayer(
                     "§6Banned!\n理由: " + playerData.getString(uuid + ".ban.reason") +
-                            "\n§c BAN終了までの期間: §e" + calculateTime(playerData.getLong(uuid + ".ban.length") - unixTime)
+                            "\n§c BAN終了までの期間: §e" + Timer.calculateTime(playerData.getLong(uuid + ".ban.length") - unixTime)
             );
          }
       }
@@ -67,18 +68,5 @@ public class JoinLeaveEvent implements Listener {
             playerData.save(playerFile);
          } catch (IOException ignored) {}
       }
-   }
-
-   public static String calculateTime(long seconds) {
-      int days = (int) TimeUnit.SECONDS.toDays(seconds);
-      long hours = TimeUnit.SECONDS.toHours(seconds) - (days * 24);
-      long minute = TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.SECONDS.toHours(seconds) * 60L;
-      long second = seconds - TimeUnit.SECONDS.toMinutes(seconds) * 60L;
-      return (" " + days + "d " + hours + "h " + minute + "m " + second + "s")
-              .replace(" 0d", "")
-              .replace(" 0h", "")
-              .replace(" 0m", "")
-              .replace(" 0s", "")
-              .replaceFirst(" ", "");
    }
 }
